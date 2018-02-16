@@ -8,13 +8,10 @@ import javafx.stage.Stage;
 import ch.fhnw.uieng.module01.helloworld.presentationmodel.DemoPM;
 import ch.fhnw.uieng.module01.helloworld.view.RootPane;
 
-/**
- * @author Dieter Holz
- */
 public class AppStarter extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         DemoPM model     = new DemoPM();
         Parent rootPanel = new RootPane(model);
 
@@ -23,7 +20,6 @@ public class AppStarter extends Application {
         primaryStage.titleProperty().bind(model.applicationTitleProperty());
 
         primaryStage.setScene(scene);
-
 
         primaryStage.show();
     }

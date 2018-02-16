@@ -1,5 +1,7 @@
 package ch.fhnw.uieng.module01.helloworld.view.util;
 
+import java.util.List;
+
 /**
  * @author Dieter Holz
  */
@@ -9,8 +11,8 @@ public interface ViewMixin {
         initializeSelf();
         initializeParts();
         layoutParts();
-        addEventHandlers();
-        addValueChangedListeners();
+        setupEventHandlers();
+        setupValueChangedListeners();
         setupBindings();
     }
 
@@ -21,12 +23,21 @@ public interface ViewMixin {
 
     void layoutParts();
 
-    default void addEventHandlers() {
+    default void setupEventHandlers() {
     }
 
-    default void addValueChangedListeners() {
+    default void setupValueChangedListeners() {
     }
 
     default void setupBindings() {
     }
+
+    default void addStylesheetFiles(String... stylesheetFile){
+        for(String file : stylesheetFile){
+            String stylesheet = getClass().getResource(file).toExternalForm();
+            getStylesheets().add(stylesheet);
+        }
+    }
+
+    List<String> getStylesheets();
 }

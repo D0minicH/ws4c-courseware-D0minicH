@@ -3,9 +3,6 @@ package ch.fhnw.uieng.module01.helloworld.presentationmodel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/**
- * @author Dieter Holz
- */
 public class DemoPM {
     private final StringProperty applicationTitle = new SimpleStringProperty("JavaFX Application");
     private final StringProperty greeting         = new SimpleStringProperty("Hello World!");

@@ -1,7 +1,3 @@
-/*
- *
- */
-
 package ch.fhnw.uieng.module01.helloworld.view;
 
 import javafx.scene.control.Button;
@@ -10,11 +6,9 @@ import javafx.scene.layout.StackPane;
 import ch.fhnw.uieng.module01.helloworld.presentationmodel.DemoPM;
 import ch.fhnw.uieng.module01.helloworld.view.util.ViewMixin;
 
-/**
- * @author Dieter Holz
- */
+
 public class RootPane extends StackPane implements ViewMixin {
-    private DemoPM pm;
+    private final DemoPM pm;
 
     private Button button;
 
@@ -25,12 +19,7 @@ public class RootPane extends StackPane implements ViewMixin {
 
     @Override
     public void initializeSelf() {
-        String fonts = getClass().getResource("/fonts/fonts.css").toExternalForm();
-        getStylesheets().add(fonts);
-
-        String stylesheet = getClass().getResource("style.css").toExternalForm();
-        getStylesheets().add(stylesheet);
-
+        addStylesheetFiles("/fonts/fonts.css", "style.css");
         getStyleClass().add("root-pane");
     }
 
