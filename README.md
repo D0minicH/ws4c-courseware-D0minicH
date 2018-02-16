@@ -10,5 +10,5 @@ Damit wird das Repository auf ihren Laptop geladen ("gecloned") und ein IDEA-Pro
 
 ###Bitte beachten Sie:
 
-Die benoteten Hausarbeiten und die Projektarbeit werden **nicht** in diesem Courseware-Projekt bearbeitet. Dafür wird es separate Repositories/Projekte geben.
+Die benotete Hausarbeit und die Projektarbeit werden **nicht** in diesem Courseware-Projekt bearbeitet. Dafür wird es separate Repositories/Projekte geben.
 
