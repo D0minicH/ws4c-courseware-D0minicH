@@ -2,9 +2,6 @@ package ch.fhnw.uieng.module01.helloworld.view.util;
 
 import java.util.List;
 
-/**
- * @author Dieter Holz
- */
 public interface ViewMixin {
 
     default void init() {
