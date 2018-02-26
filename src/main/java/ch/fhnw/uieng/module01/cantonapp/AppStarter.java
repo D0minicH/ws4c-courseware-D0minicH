@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import ch.fhnw.uieng.module01.cantonapp.presentationmodel.PM;
+import ch.fhnw.uieng.module01.cantonapp.presentationmodel.Swiss;
 import ch.fhnw.uieng.module01.cantonapp.view.RootPane;
 
 /**
@@ -15,7 +15,7 @@ public class AppStarter extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        PM     model     = new PM();
+        Swiss model     = new Swiss();
         Parent rootPanel = new RootPane(model);
 
         Scene scene = new Scene(rootPanel);
