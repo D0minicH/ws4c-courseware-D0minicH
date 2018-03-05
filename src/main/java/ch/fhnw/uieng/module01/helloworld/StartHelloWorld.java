@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import ch.fhnw.uieng.module01.helloworld.presentationmodel.DemoPM;
 import ch.fhnw.uieng.module01.helloworld.view.RootPane;
 
-public class AppStarter extends Application {
+public class StartHelloWorld extends Application {
 
     @Override
     public void start(Stage primaryStage) {
