@@ -57,8 +57,6 @@ public class Switzerland {
         });
     }
 
-    public ObservableList <CantonPM> getAllCantons() { return sortedCantons;}
-
     private void setupBindings() {
         totalCantonCount.bind(Bindings.size(allCantons));
         filteredCantonCount.bind(Bindings.size(filteredCantons));
