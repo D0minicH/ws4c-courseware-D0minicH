@@ -1,23 +1,28 @@
 package ch.fhnw.uieng.module02.cantonfiltered.view;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
+
 
 import ch.fhnw.uieng.module02.cantonfiltered.presentationmodel.CantonPM;
 import ch.fhnw.uieng.module02.cantonfiltered.presentationmodel.Switzerland;
 import ch.fhnw.uieng.module02.cantonfiltered.view.util.ViewMixin;
-import javafx.scene.layout.VBox;
+
+
+import java.awt.*;
 
 /**
  * @author Dieter Holz
  */
-public class RootPane extends VBox implements ViewMixin {
+public class RootPane extends BorderPane implements ViewMixin {
     private final Switzerland rootPM;
 
     private TextField filterField;
     private TableView<CantonPM> tableView;
+    private Label CantonCountLabel;
 
     public RootPane(Switzerland pm) {
         this.rootPM = pm;
@@ -83,15 +88,23 @@ public class RootPane extends VBox implements ViewMixin {
                  .addAll(wappenCol, nameCol, kuerzelCol, kantonsnummerCol, standesstimmeCol, beitrittCol, hauptortCol,
                          einwohnerCol, auslaenderCol, flaecheCol,
                          einwohnerdichteCol, gemeindenCol, amtsspracheCol);
+
+        CantonCountLabel = new Label();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll(filterField, tableView);
+        setTop(filterField);
+        setCenter(tableView);
+        setBottom(CantonCountLabel);
     }
 
     @Override
     public void setupBindings() {
         filterField.textProperty().bindBidirectional(rootPM.filterStringProperty());
+        CantonCountLabel.textProperty().bind(rootPM.filteredCantonCountProperty().asString()
+                .concat("/")
+                .concat(rootPM.totalCantonCountProperty())
+                .concat(" Kantone"));
     }
 }

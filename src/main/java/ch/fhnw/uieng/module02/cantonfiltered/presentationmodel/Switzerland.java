@@ -3,6 +3,7 @@ package ch.fhnw.uieng.module02.cantonfiltered.presentationmodel;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import ch.fhnw.uieng.module02.cantonfiltered.service.CantonDTO;
 import ch.fhnw.uieng.module02.cantonfiltered.service.CantonService;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Switzerland ist der zentrale Einstieg in den PresentationModel-Layer.
@@ -35,6 +37,7 @@ public class Switzerland {
 
     private final FilteredList<CantonPM> filteredCantons = new FilteredList<>(allCantons);
 
+    private final SortedList<CantonPM> sortedCantons = new SortedList<>(filteredCantons);
 
     private final CantonService service;
 
@@ -43,7 +46,7 @@ public class Switzerland {
 
         // Services liefern DTOs zurück
         List<CantonDTO> dtos = service.findAll();
-
+        setupBindings();
 
         allCantons.addAll(dtos.stream()
                               .map(CantonPM::of)
@@ -52,6 +55,13 @@ public class Switzerland {
         filterString.addListener((observable, oldValue, newValue) -> {
             filteredCantons.setPredicate(cantonPM -> cantonPM.getKanton().equals(newValue));
         });
+    }
+
+    public ObservableList <CantonPM> getAllCantons() { return sortedCantons;}
+
+    private void setupBindings() {
+        totalCantonCount.bind(Bindings.size(allCantons));
+        filteredCantonCount.bind(Bindings.size(filteredCantons));
     }
 
     // alle getter und setter (generiert via "Code -> Generate")
