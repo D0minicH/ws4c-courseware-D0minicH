@@ -1,0 +1,12 @@
+.root-pane {
+    -fx-padding: 15;
+}
+
+.filter {
+    -fx-background-radius: 16px;
+    -fx-font-size: 12px;
+}
+
+.table-column.center {
+  -fx-alignment: CENTER;
+}
