@@ -10,7 +10,7 @@ import ch.fhnw.uieng.module03.lazyloading_idbased.presentationmodel.CommunePM;
 /**
  * @author Dieter Holz
  */
-public class LocalDateCell extends TableCell<CommunePM, LocalDate> {
+public class LocalDateCell extends TableCell<Long, LocalDate> {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yy");
 
     @Override

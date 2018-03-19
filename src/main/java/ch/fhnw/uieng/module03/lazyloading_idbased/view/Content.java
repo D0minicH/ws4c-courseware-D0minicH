@@ -12,11 +12,11 @@ import ch.fhnw.uieng.module03.lazyloading_idbased.view.util.ViewMixin;
 /**
  * @author Dieter Holz
  */
-class Content extends TableView<CommunePM> implements ViewMixin {
+class Content extends TableView<Long> implements ViewMixin {
     private final Switzerland rootPM;
 
     Content(Switzerland rootPM) {
-        super(rootPM.getCommunes());
+        super(rootPM.getCommuneIds());
         this.rootPM = rootPM;
 
         init();
@@ -25,37 +25,38 @@ class Content extends TableView<CommunePM> implements ViewMixin {
     @Override
     public void initializeParts() {
         //todo Die Beschriftungen der ColumnHeader ins PM verlagern.
-        TableColumn<CommunePM, String> cantonCodeCol = new TableColumn<>("Kantonsk\u00fcrzel");
-        cantonCodeCol.setCellValueFactory(cell -> cell.getValue().cantonCodeProperty());
+        TableColumn<Long, String> cantonCodeCol = new TableColumn<>("Kantonsk\u00fcrzel");
+        cantonCodeCol.setCellValueFactory(cell -> rootPM.getCommuneById(cell.getValue()).cantonCodeProperty());
         cantonCodeCol.getStyleClass().add("center");
 
-        TableColumn<CommunePM, Number> destrictCodeCol = new TableColumn<>("Bezirksnummer");
-        destrictCodeCol.setCellValueFactory(cell -> cell.getValue().destrictIDProperty());
+        TableColumn<Long, Number> destrictCodeCol = new TableColumn<>("Bezirksnummer");
+        destrictCodeCol.setCellValueFactory(cell -> rootPM.getCommuneById(cell.getValue()).destrictIDProperty());
         destrictCodeCol.getStyleClass().add("center");
 
-        TableColumn<CommunePM, Number> communeIdCol = new TableColumn<>("Gemeindenummer");
-        communeIdCol.setCellValueFactory(cell -> cell.getValue().idProperty());
+        TableColumn<Long, Number> communeIdCol = new TableColumn<>("Gemeindenummer");
+        communeIdCol.setCellValueFactory(cell -> rootPM.getCommuneById(cell.getValue()).idProperty());
         communeIdCol.getStyleClass().add("center");
 
-        TableColumn<CommunePM, String> nameOfficialCol = new TableColumn<>("Gemeindename (amtlich)");
-        nameOfficialCol.setCellValueFactory(cell -> cell.getValue().nameOfficialProperty());
+        TableColumn<Long, String> nameOfficialCol = new TableColumn<>("Gemeindename (amtlich)");
+        nameOfficialCol.setCellValueFactory(cell -> rootPM.getCommuneById(cell.getValue()).nameOfficialProperty());
 
-        TableColumn<CommunePM, String> nameShortCol = new TableColumn<>("Gemeindename (kurz");
-        nameShortCol.setCellValueFactory(cell -> cell.getValue().nameShortProperty());
+        TableColumn<Long, String> nameShortCol = new TableColumn<>("Gemeindename (kurz");
+        nameShortCol.setCellValueFactory(cell -> rootPM.getCommuneById(cell.getValue()).nameShortProperty());
 
-        TableColumn<CommunePM, String> destrictNameCol = new TableColumn<>("Bezirksname");
-        destrictNameCol.setCellValueFactory(cell -> cell.getValue().destrictNameProperty());
+        TableColumn<Long, String> destrictNameCol = new TableColumn<>("Bezirksname");
+        destrictNameCol.setCellValueFactory(cell -> rootPM.getCommuneById(cell.getValue()).destrictNameProperty());
 
-        TableColumn<CommunePM, String> cantonNameCol = new TableColumn<>("Kantonsname");
-        cantonNameCol.setCellValueFactory(cell -> cell.getValue().cantonNameProperty());
+        TableColumn<Long, String> cantonNameCol = new TableColumn<>("Kantonsname");
+        cantonNameCol.setCellValueFactory(cell -> rootPM.getCommuneById(cell.getValue()).cantonNameProperty());
 
-        TableColumn<CommunePM, LocalDate> lastChangeCol = new TableColumn<>("Letzte Aenderung");
-        lastChangeCol.setCellValueFactory(cell -> cell.getValue().lastModificationProperty());
+        TableColumn<Long, LocalDate> lastChangeCol = new TableColumn<>("Letzte Aenderung");
+        lastChangeCol.setCellValueFactory(cell -> rootPM.getCommuneById(cell.getValue()).lastModificationProperty());
         lastChangeCol.getStyleClass().add("center");
         lastChangeCol.setCellFactory(cell -> new LocalDateCell());  // legt die Formatierung des Datums fest
 
-        getColumns().addAll(cantonCodeCol, destrictCodeCol, communeIdCol, nameOfficialCol, nameShortCol, destrictNameCol,
-                            cantonNameCol, lastChangeCol);
+        getColumns().addAll(cantonCodeCol, destrictCodeCol, communeIdCol, nameOfficialCol,
+                nameShortCol, destrictNameCol, cantonNameCol, lastChangeCol
+        );
 
     }
 

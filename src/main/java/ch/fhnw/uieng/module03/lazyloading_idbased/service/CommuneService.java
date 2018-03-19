@@ -7,5 +7,7 @@ import java.util.List;
  */
 public interface CommuneService {
 
-    List<CommuneDTO> findAll();
+    List<Long> getAllIds();
+
+    CommuneDTO getCommuneById(long id);
 }

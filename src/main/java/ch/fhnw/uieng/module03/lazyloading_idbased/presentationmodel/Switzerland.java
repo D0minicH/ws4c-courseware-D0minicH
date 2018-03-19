@@ -2,6 +2,7 @@ package ch.fhnw.uieng.module03.lazyloading_idbased.presentationmodel;
 
 import java.util.stream.Collectors;
 
+import ch.fhnw.uieng.module03.lazyloading_idbased.service.CommuneDTO;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -21,18 +22,21 @@ public class Switzerland {
     private final StringProperty filter           = new SimpleStringProperty();
     private final IntegerProperty communesCounter = new SimpleIntegerProperty();
 
-    private final ObservableList<CommunePM> allCommunes = FXCollections.observableArrayList();
+    private final ObservableList<Long> allCommuneIds = FXCollections.observableArrayList();
     private final CommuneService service;
 
     public Switzerland(CommuneService service) {
         this.service = service;
 
-        allCommunes.addAll(service.findAll().stream()
-                                  .map(CommunePM::of)
-                                  .collect(Collectors.toList()));
+        allCommuneIds.addAll(service.getAllIds());
 
         setupValueChangedListeners();
         setupBindings();
+    }
+
+    public CommunePM getCommuneById(long id){
+        CommuneDTO dto = service.getCommuneById(id);
+        return CommunePM.of(dto);
     }
 
     private void setupValueChangedListeners(){
@@ -40,11 +44,11 @@ public class Switzerland {
     }
 
     private void setupBindings(){
-        communesCounter.bind(Bindings.size(allCommunes));
+        communesCounter.bind(Bindings.size(allCommuneIds));
     }
 
-    public ObservableList<CommunePM> getCommunes() {
-        return allCommunes;
+    public ObservableList<Long> getCommuneIds() {
+        return allCommuneIds;
     }
 
 
