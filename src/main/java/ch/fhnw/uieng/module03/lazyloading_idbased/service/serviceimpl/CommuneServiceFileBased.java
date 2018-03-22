@@ -26,7 +26,7 @@ public class CommuneServiceFileBased implements CommuneService {
 	public List <Long> getAllIds() {
 		try (Stream<String> streamOfLines = getStreamOfLines(FILE_NAME)) {        	// try-with-resources schliesst automatisch den Stream
 			return streamOfLines.skip(1)                                          	// erste Zeile ist die Headerzeile; ueberspringen
-					.map(line -> Long.parseLong(line.split(DELIMITER, 12)[2])) 	// aus jeder Zeile ein DTO machen
+					.map(line -> Long.parseLong(line.split(DELIMITER, 12)[2]))
 					.collect(Collectors.toList());                    				// alles aufsammeln
 		}
 	}
