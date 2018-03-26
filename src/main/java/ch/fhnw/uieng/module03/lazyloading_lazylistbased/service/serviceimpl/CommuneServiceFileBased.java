@@ -22,7 +22,25 @@ public class CommuneServiceFileBased implements CommuneService {
     private static final String FILE_NAME = "/data/communes.txt";
     private static final String DELIMITER = "\t";
 
-    @Override
+	@Override
+	public int getTotalCount() {
+		try (Stream<String> streamOfLines = getStreamOfLines(FILE_NAME)) {
+			return (int)streamOfLines.skip(1)
+										.count();
+		}
+	}
+
+	@Override
+	public CommuneDTO getCommune(int rowIndex) {
+		try (Stream<String> streamOfLines = getStreamOfLines(FILE_NAME)) {
+			return streamOfLines.skip(1 + rowIndex).map(line -> new CommuneDTO(line.split(DELIMITER, 12)))
+					.findAny()
+					.orElseThrow(IllegalArgumentException:: new);
+
+		}
+	}
+
+	@Override
     public List<CommuneDTO> findAll() {
         try (Stream<String> streamOfLines = getStreamOfLines(FILE_NAME)) {        // try-with-resources schliesst automatisch den Stream
             return streamOfLines.skip(1)                                          // erste Zeile ist die Headerzeile; ueberspringen

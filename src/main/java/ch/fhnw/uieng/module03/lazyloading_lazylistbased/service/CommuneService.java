@@ -7,5 +7,9 @@ import java.util.List;
  */
 public interface CommuneService {
 
+    int getTotalCount();
+
+    CommuneDTO getCommune(int rowIndex);
+
     List<CommuneDTO> findAll();
 }
