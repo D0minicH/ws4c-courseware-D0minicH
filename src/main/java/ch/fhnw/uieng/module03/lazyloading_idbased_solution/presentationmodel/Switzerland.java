@@ -1,8 +1,5 @@
-package ch.fhnw.uieng.module03.lazyloading_idbased.presentationmodel;
+package ch.fhnw.uieng.module03.lazyloading_idbased_solution.presentationmodel;
 
-import java.util.stream.Collectors;
-
-import ch.fhnw.uieng.module03.lazyloading_idbased.service.CommuneDTO;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -10,8 +7,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
-import ch.fhnw.uieng.module03.lazyloading_idbased.service.CommuneService;
+import ch.fhnw.uieng.module03.lazyloading_idbased_solution.service.CommuneService;
 
 /**
  * @author Dieter Holz
@@ -20,30 +18,23 @@ public class Switzerland {
 
     private final StringProperty applicationTitle = new SimpleStringProperty("Gemeinden der Schweiz");
     private final StringProperty filter           = new SimpleStringProperty();
-    private final IntegerProperty communesCounter = new SimpleIntegerProperty();
 
-    private final ObservableList<Long> allCommuneIds = FXCollections.observableArrayList();
+    private final IntegerProperty communesCounter    = new SimpleIntegerProperty();
+    private final IntegerProperty serviceCallCounter = new SimpleIntegerProperty();
+    private final IntegerProperty instanceCounter    = new SimpleIntegerProperty();
+
+    private final ObservableList<Long>           allCommuneIds  = FXCollections.observableArrayList();
+    private final ObservableMap<Long, CommunePM> loadedCommunes = FXCollections.observableHashMap();
+
     private final CommuneService service;
-
-    private CommunePM lastPM; //cache
 
     public Switzerland(CommuneService service) {
         this.service = service;
 
-        allCommuneIds.addAll(service.getAllIds());
+        allCommuneIds.addAll(service.findAllIds());
 
         setupValueChangedListeners();
         setupBindings();
-    }
-
-    public CommunePM getCommuneById(long id){
-        if (lastPM!=null && lastPM.getId() == id){
-            return lastPM;
-        }
-
-        CommuneDTO dto = service.getCommuneById(id);
-        lastPM = CommunePM.of(dto);
-        return lastPM;
     }
 
     private void setupValueChangedListeners(){
@@ -52,14 +43,26 @@ public class Switzerland {
 
     private void setupBindings(){
         communesCounter.bind(Bindings.size(allCommuneIds));
+        instanceCounter.bind(Bindings.size(loadedCommunes));
     }
 
     public ObservableList<Long> getCommuneIds() {
         return allCommuneIds;
     }
 
+    public CommunePM getCommune(long value) {
+      //   sehr primitive Caching-Strategie.
+        if(loadedCommunes.size() > 50){
+            loadedCommunes.clear();
+        }
+        return loadedCommunes.computeIfAbsent(value, id -> {
+            setServiceCallCounter(getServiceCallCounter() + 1);
 
-    // alle setter und getter
+            return CommunePM.of(service.get(id));
+        });
+    }
+
+    // alle Getter und Setter
 
     public String getFilter() {
         return filter.get();
@@ -83,6 +86,30 @@ public class Switzerland {
 
     public void setCommunesCounter(int communesCounter) {
         this.communesCounter.set(communesCounter);
+    }
+
+    public int getServiceCallCounter() {
+        return serviceCallCounter.get();
+    }
+
+    public IntegerProperty serviceCallCounterProperty() {
+        return serviceCallCounter;
+    }
+
+    public void setServiceCallCounter(int serviceCallCounter) {
+        this.serviceCallCounter.set(serviceCallCounter);
+    }
+
+    public int getInstanceCounter() {
+        return instanceCounter.get();
+    }
+
+    public IntegerProperty instanceCounterProperty() {
+        return instanceCounter;
+    }
+
+    public void setInstanceCounter(int instanceCounter) {
+        this.instanceCounter.set(instanceCounter);
     }
 
     public String getApplicationTitle() {
