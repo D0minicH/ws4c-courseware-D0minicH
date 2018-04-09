@@ -1,26 +1,22 @@
-package ch.fhnw.uieng.module03.lazyloading_lazylistbased.presentationmodel;
-
-import java.util.stream.Collectors;
+package ch.fhnw.uieng.module03.lazyloading_lazylistbased_step1.presentationmodel;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import ch.fhnw.uieng.module03.lazyloading_lazylistbased.service.CommuneService;
+import ch.fhnw.uieng.module03.lazyloading_lazylistbased_step1.service.CommuneService;
 
 /**
  * @author Dieter Holz
  */
 public class Switzerland {
 
-
-    private final StringProperty applicationTitle = new SimpleStringProperty("Gemeinden der Schweiz");
-    private final StringProperty filter           = new SimpleStringProperty();
-    private final IntegerProperty communesCounter = new SimpleIntegerProperty();
+    private final StringProperty  applicationTitle = new SimpleStringProperty("Gemeinden der Schweiz");
+    private final StringProperty  filter           = new SimpleStringProperty();
+    private final IntegerProperty communesCounter  = new SimpleIntegerProperty();
 
     private final ObservableList<CommunePM> allCommunes;
     private final CommuneService service;
@@ -28,7 +24,7 @@ public class Switzerland {
     public Switzerland(CommuneService service) {
         this.service = service;
 
-       allCommunes = new LazyList(service);
+        allCommunes = new LazyList(service);
 
         setupValueChangedListeners();
         setupBindings();
@@ -46,9 +42,7 @@ public class Switzerland {
         return allCommunes;
     }
 
-
-    // alle setter und getter
-
+    //getter und setter
     public String getFilter() {
         return filter.get();
     }

@@ -1,34 +1,32 @@
-package ch.fhnw.uieng.module03.lazyloading_lazylistbased.presentationmodel;
-
-import java.util.stream.Collectors;
+package ch.fhnw.uieng.module03.lazyloading_lazylistbased_zolution.presentationmodel;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-import ch.fhnw.uieng.module03.lazyloading_lazylistbased.service.CommuneService;
+import ch.fhnw.uieng.module03.lazyloading_lazylistbased_zolution.presentationmodel.util.PagingList;
+import ch.fhnw.uieng.module03.lazyloading_lazylistbased_zolution.service.CommuneDTO;
+import ch.fhnw.uieng.module03.lazyloading_lazylistbased_zolution.service.PagingService;
 
 /**
  * @author Dieter Holz
  */
 public class Switzerland {
 
+    private final PagingService<CommuneDTO> service;
 
-    private final StringProperty applicationTitle = new SimpleStringProperty("Gemeinden der Schweiz");
-    private final StringProperty filter           = new SimpleStringProperty();
-    private final IntegerProperty communesCounter = new SimpleIntegerProperty();
+    private final StringProperty  applicationTitle = new SimpleStringProperty("Gemeinden der Schweiz");
+    private final StringProperty  filter           = new SimpleStringProperty();
+    private final IntegerProperty communesCounter  = new SimpleIntegerProperty();
 
-    private final ObservableList<CommunePM> allCommunes;
-    private final CommuneService service;
+    private final PagingList<CommunePM, CommuneDTO> allCommunes;
 
-    public Switzerland(CommuneService service) {
+    public Switzerland(PagingService<CommuneDTO> service) {
         this.service = service;
 
-       allCommunes = new LazyList(service);
+        allCommunes = new PagingList<>(service, index -> new CommunePM());
 
         setupValueChangedListeners();
         setupBindings();
@@ -42,12 +40,12 @@ public class Switzerland {
         communesCounter.bind(Bindings.size(allCommunes));
     }
 
-    public ObservableList<CommunePM> getCommunes() {
+    public PagingList<CommunePM, CommuneDTO> getCommunes() {
         return allCommunes;
     }
 
 
-    // alle setter und getter
+    // alle getter und setter
 
     public String getFilter() {
         return filter.get();

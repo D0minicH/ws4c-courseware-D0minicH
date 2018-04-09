@@ -30,9 +30,12 @@ class LazyListTest {
     void testGet(){
         //given
         CommuneService service = new CommuneServiceFileBased();
+        LazyList ll = new LazyList(service);
 
         //when
+        CommunePM pm = ll.get(0);
 
         //then
+        assertEquals("Aeugst am Albis", pm.getNameOfficial());
     }
 }
