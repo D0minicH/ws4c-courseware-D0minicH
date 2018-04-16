@@ -24,7 +24,7 @@ class Content extends TableView<Long> implements ViewMixin {
 
     @Override
     public void initializeParts() {
-        //todo Die Beschriftungen der ColumnHeader ins PM verlagern.
+        //todo Die Beschriftungen der ColumnHeader ins Switzerland verlagern.
         TableColumn<Long, String> cantonCodeCol = new TableColumn<>("Kantonsk\u00fcrzel");
         cantonCodeCol.setCellValueFactory(cell -> rootPM.getCommuneById(cell.getValue()).cantonCodeProperty());
         cantonCodeCol.getStyleClass().add("center");

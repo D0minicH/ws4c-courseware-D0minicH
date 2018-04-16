@@ -32,7 +32,7 @@ public class RootPane extends StackPane implements ViewMixin {
     public void initializeParts() {
         tableView = new TableView<>(rootPM.getAllCantons());
 
-        //todo Die Beschriftungen der ColumnHeader ins PM verlagern.
+        //todo Die Beschriftungen der ColumnHeader ins Switzerland verlagern.
         TableColumn<CantonPM, String> nameCol = new TableColumn<>("Kanton");
         nameCol.setCellValueFactory(cell -> cell.getValue().kantonProperty());
 

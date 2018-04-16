@@ -36,8 +36,8 @@ public class MountainPM implements PMBase<MountainDTO> {
         setRegion(dto.getRegion());
 
         // ein erstes Beispiel, dass der Service nicht alles liefert, was man zur Darstellung braucht
-        // die imageURL wird erst hier, im PM, ergänzt
-        // aber es bleibt dabei: das PM stellt die Infos als Properties zur Verfügung,
+        // die imageURL wird erst hier, im Switzerland, ergänzt
+        // aber es bleibt dabei: das Switzerland stellt die Infos als Properties zur Verfügung,
         // so dass sie möglichst einfach im UI dargestellt werden können
         setImageURL(BASE_URL + dto.getId() + "-1.jpg");
     }

@@ -35,7 +35,7 @@ class Content extends TableView<CantonPM> implements ViewMixin {
 
     @Override
     public void initializeParts() {
-        //todo Die Beschriftungen der ColumnHeader ins PM verlagern.
+        //todo Die Beschriftungen der ColumnHeader ins Switzerland verlagern.
         TableColumn<CantonPM, String> wappenCol = new TableColumn<>("");
         wappenCol.setCellValueFactory(cell -> cell.getValue().kuerzelProperty());
         wappenCol.setCellFactory(cell -> new KantonTableCell());

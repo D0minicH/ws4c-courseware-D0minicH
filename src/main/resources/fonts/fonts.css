@@ -4,6 +4,12 @@
 }
 
 @font-face {
+    font-family: 'Flaticon';
+    src: url("/fonts/flaticon.ttf");
+}
+
+
+@font-face {
     font-family: 'Roboto Regular';
     src: url(/fonts/Roboto/Roboto-Regular.ttf);
 }
@@ -26,6 +32,31 @@
 @font-face {
     font-family: 'DS-Digital';
     src: url(/fonts/ds_digital/DS-DIGI.TTF);
+}
+
+@font-face {
+    font-family: 'Lato Light';
+    src: url(/fonts/Lato/Lato-Lig.ttf);
+}
+
+@font-face {
+    font-family: 'Lato Regular';
+    src: url(/fonts/Lato/Lato-Reg.ttf);
+}
+
+@font-face {
+    font-family: 'Lato Black';
+    src: url(/fonts/Lato/Lato-Bla.ttf);
+}
+
+@font-face {
+    font-family: 'Lato Bold';
+    src: url(/fonts/Lato/Lato-Bol.ttf);
+}
+
+@font-face {
+    font-family: 'Lato Hairline';
+    src: url(/fonts/Lato/Lato-Hai.ttf);
 }
 
 

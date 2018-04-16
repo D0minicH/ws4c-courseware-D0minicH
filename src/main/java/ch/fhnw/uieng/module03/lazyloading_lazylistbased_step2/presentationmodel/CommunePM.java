@@ -40,9 +40,7 @@ public class CommunePM {
         return cantonCode.get();
     }
 
-    public StringProperty cantonCodeProperty() {
-        return cantonCode;
-    }
+    public StringProperty cantonCodeProperty() { return cantonCode; }
 
     public void setCantonCode(String cantonCode) {
         this.cantonCode.set(cantonCode);
